@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home">MyApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
+        <a class="nav-link" routerLink="/allPosts">All Posts</a>
+        <a class="nav-link" routerLink="/newPost">New Post</a>
+        <div class="navbar-nav ml-5">
+          <a *ngIf="!isAuthenticated" class="nav-link" routerLink="/login">Login</a>
+          <a *ngIf="!isAuthenticated" class="nav-link" routerLink="/signup">Sign Up</a>
+          <a *ngIf="isAuthenticated" class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
+          <a *ngIf="isAuthenticated" class="nav-link"
+            style="font-size: 18px; font-weight: 800; color: crimson;">{{userInfo.userName}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+

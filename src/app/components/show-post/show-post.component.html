@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<div *ngIf="isLoading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="conteiner mt-5 d-flex flex-column vh-100">
+    <div class="row">
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <img src="{{post.image}}" alt="post_image" class="d-block w-100">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Title: {{post.title}}
+                                    </h5>
+                                    <p class="card-text">Description: {{post.description}}
+                                    </p>
+                                    <p class="card-text">Location: {{post.location}}
+                                    </p>
+                                    <p class="card-text">Lycky Number: {{post.lucky}}
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">
+                                            Submitted by {{post.author.name}}
+                                        </small>
+                                    </p>
+                                    <div *ngIf="userAccess" class="card-body">
+                                        <a (click)="onEditPost()" class="card-link btn btn-info"
+                                            style="margin-right: 10px;">Edit</a>
+                                        <div class="d-inline">
+                                            <button (click)="onDeletePost()" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div *ngIf="!noLogIn">
+                <h2>Leave a Comment</h2>
+                <form #commentForm="ngForm" (ngSubmit)="addComment()" class="mb-3 validated-form">
+                    <fieldset class="starability-basic">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked
+                            aria-label="No rating." />
+                        <input type="radio" id="first-rate1" ngModel #rating="ngModel" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" ngModel #rating="ngModel" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" ngModel #rating="ngModel" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" ngModel #rating="ngModel" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" ngModel #rating="ngModel" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                    <div class="mb-3">
+                        <label class="form-label" for="body">Comment Text</label>
+                        <textarea ngModel #body="ngModel" class="form-control" name="body" id="body" cols="30" rows="3"
+                            required></textarea>
+                    </div>
+                    <button [disabled]="!commentForm.valid" type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+
+            <div *ngFor="let comment of post.comments; let i = index">
+                <div class="card mb-3 ">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{comment.author.name}}
+                        </h5>
+                        <p class="starability-result" [attr.data-rating]="comment.rate">
+                            Rated: {{comment.rate}} stars
+                        </p>
+                        <p class="card-text">Comment: {{ comment.text }}
+                        </p>
+                    </div>
+                    <button *ngIf="!noLogIn && comment.author.id === currentUser.localId || userAccess" type="button" (click)="deleteComment(i)"
+                        class="btn btn-sm btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div style="margin-top: 100%;">
+    <app-footer></app-footer>
+</div> -->

@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div *ngIf="isLoading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="container">
+    <h1>All Posts</h1>
+    <div class="form-group mb-3">
+        <input type="text" name="search" (input)="searchInput($event)" placeholder="Post search by title..."
+            class="form-control">
+    </div>
+    <div *ngIf="forAllPost">
+        <div id="post-grid" *ngFor="let post of allPosts; let i = index">
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img *ngIf="post.image.length > 1" class="img-fluid" alt="post_image" src="{{post.image}}"
+                            style="height: 250px; width: 100%;">
+                        <img *ngIf="post.image.length < 1" class="img-fluid" alt="unknow_image"
+                            src="https://res.cloudinary.com/dtk6sp6pj/image/upload/v1672880178/No-Image_v71xis.png">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{post.title}}
+                            </h5>
+                            <p class="card-text">
+                                {{post.description}}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {{post.location}}
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" [routerLink]="[i]">View {{post.title}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div *ngIf="!forAllPost">
+        <div id="post-grid" *ngFor="let post of allPostFromSearch; let i = index">
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img *ngIf="post.image.length > 1" class="img-fluid" alt="post_image" src="{{post.image}}"
+                            style="height: 250px; width: 100%;">
+                        <img *ngIf="post.image.length < 1" class="img-fluid" alt="unknow_image"
+                            src="https://res.cloudinary.com/dtk6sp6pj/image/upload/v1672880178/No-Image_v71xis.png">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{post.title}}
+                            </h5>
+                            <p class="card-text">
+                                {{post.description}}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {{post.location}}
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" [routerLink]="[i]">View {{post.title}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <app-footer></app-footer>

@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="row" style="margin-top: 20px; margin-bottom: 85px;">
+    <h1 class="text-center">Edit Post</h1>
+    <div class="col-6 offset-3">
+        <form [formGroup]="editPostForm" class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="title" formControlName="title">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <input class="form-control" type="text" id="description" name="description"
+                    formControlName="description">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="location" formControlName="location">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="luckyNumber">Lucky Number</label>
+                <input class="form-control" type="number" id="luckyNumber" name="lucky" formControlName="lucky">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image URL ..</label>
+                <input class="form-control" #image type="text" id="image" name="image" formControlName="image">
+            </div>
+            <div class="mb-3">
+                <img style="width: 450px; height: 250px;" [src]="image.value" alt="current_image">
+            </div>
+            <button class="btn btn-success mb-3" [disabled]="!editPostForm.valid" (click)="updatePost()">Update Post</button>
+            <button class="btn btn-info mb-3 ml-5" (click)="onBack()">Back</button>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>
